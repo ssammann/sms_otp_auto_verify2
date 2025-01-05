@@ -34,9 +34,8 @@ class AppSignatureHelper(context: Context) : ContextWrapper(context) {
                     PackageManager.GET_SIGNATURES).signatures
 
             // For each signature create a compatible hash
-            signatures
-                    .mapNotNull { hash(packageName, it.toCharsString()) }
-                    .mapTo(appCodes) { it }
+            signatures?.mapNotNull { hash(packageName, it.toCharsString()) }
+                ?.mapTo(appCodes) { it }
             return appCodes
         } catch (e: PackageManager.NameNotFoundException) {
             Log.e(TAG, "Unable to find package to obtain hash.", e)
